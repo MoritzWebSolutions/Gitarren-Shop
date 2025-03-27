@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function TestPage() {
   const [inhalt, setInhalt] = useState('');
@@ -6,7 +6,7 @@ export default function TestPage() {
   const [data, setData] = useState<{ id: string; inhalt: string }[]>([]);
 
   useEffect(() => {
-    fetch('/api/table')
+    fetch('/api/test')
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
@@ -15,7 +15,7 @@ export default function TestPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('/api/table', {
+    const res = await fetch('/api/test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ inhalt }),
