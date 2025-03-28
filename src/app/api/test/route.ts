@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const { id, ...inhalt } = await req.json();
-    const updatedTest = await prisma.test.update({ where: { id }, inhalt });
+    const updatedTest = await prisma.test.update({ where: { id }, data: inhalt });
     return NextResponse.json(updatedTest, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : ApiErrors.UNBEKANNTER_FEHLER;

@@ -1,6 +1,14 @@
 'use client';
 
+import AppTopBar from './app-top-bar';
 import React, { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function TestPage() {
   const [inhalt, setInhalt] = useState('');
@@ -31,28 +39,28 @@ export default function TestPage() {
   };
 
   return (
-    <div>
-      <h1>Neuen Eintrag erstellen</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Inhalt"
-          value={inhalt}
-          onChange={(e) => setInhalt(e.target.value)}
-          required
-        />
-        <button type="submit">Erstellen</button>
-      </form>
-      {message && <p>{message}</p>}
+    <Box>
+      <AppTopBar/>
+        
+      <Typography variant="h1">Neuen Eintrag erstellen</Typography>
+      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+        <TextField required
+                   label="Eintrag eingeben"
+                   value={inhalt}
+                   onChange={(e) => setInhalt(e.target.value)}/>
+        <Button type="submit" variant="contained">Erstellen</Button>
+      </Box>
 
-      <h2>Vorhandene Einträge:</h2>
-      <ul>
+      {message && <Typography variant="body1">{message}</Typography>}
+
+      <Typography variant="h2">Vorhandene Einträge:</Typography>
+      <List>
         {data.map((item) => (
-          <li key={item.id}>
-            <strong>{item.inhalt}</strong>
-          </li>
+          <ListItem key={item.id}>
+            <ListItemText primary={item.inhalt}/>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 }
